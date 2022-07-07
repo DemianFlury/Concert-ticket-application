@@ -24,7 +24,7 @@ class SalesController
             $concert = trim($_POST['concert'] ?? '');
             $loyalty = trim($_POST['loyaltybonus'] ?? 0);
             $paid = trim($_POST['paid'] ?? false);
-            $date = date('d/m/Y', strtotime("+30 days"));
+            $date = date('Y-m-d', strtotime("+30 days"));
             
         }
         
@@ -52,14 +52,13 @@ class SalesController
             }
         }
         else{
-            require 'app/Models/Ticket-Sales.php';
             $paramarray = [
                 'name' => "$name",
                 'email' => "$email",
                 'phone' => "$phone",
                 'concert' => "$concert"
             ];
-            $ticketModel->create($paramarray, $loyalty, $date, $paid);
+            $ticketModel->create($paramarray, (int)$loyalty, $date, $paid);
             header('LOCATION: overview');
         }
     }

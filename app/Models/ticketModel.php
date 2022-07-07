@@ -6,25 +6,32 @@
  */
 class ticketmodel
 {
-    public int $saleid = 0;
+    
+    public int $saleid;
     public int $personid = 0;
     public int $concertid = 0;
     public string $name = "";
     public string $email = "";
     public string $phone = "";
-    public float $loyalty = "";
+    public int $loyalty = 0;
     public string $concert = "";
-    public DateTime $paydate = "";
+    public string $paydate;
     public bool $paid = false;
-
     /**
      * Der Konstruktor initialisiert alle Eigenschaften des Objekts
      * Für neue Datensätze kann die $id auf 0 gesetzt werden.
      */
-    public function __construct(int $id, string $name)
+    public function __construct()
     {
-        $this->id = $id;
-        $this->name = $name;
+        $this->saleid = 0;
+        $this->personid = 0;
+        $this->name = "";
+        $this->email = "";
+        $this->phone = "";
+        $this->loyalty = 0;
+        $this->concert = "";
+        $this->paydate = date('Y-m-d');
+        $this->paid = false;
 
         return $this;
     }
@@ -54,7 +61,7 @@ class ticketmodel
     /**
      * Alle Datensätze aus der Datenbank laden.
      */
-    public function create($strings = [4], $loyal, $date, $ispaid)
+    public function create(array $strings, int $loyal, $date, $ispaid)
     {
         $this->name = $strings["name"];
         $this->email = $strings["email"];
