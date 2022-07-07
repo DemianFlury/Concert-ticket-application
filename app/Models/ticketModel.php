@@ -101,7 +101,6 @@ class ticketmodel
         
         $concertinfo = $concert->fetch();
 
-        var_dump($concertinfo);
 
         $ticket = db()->prepare('INSERT INTO `tickets`(customerid,concertid,paid,paydate) VALUES (:customerid,:concertid,:paid,:date)');
         $ticket->bindParam(':customerid', $customerinfo['customerid']);
@@ -119,7 +118,9 @@ class ticketmodel
     {
         $ticket = db()->query('SELECT c.customerName, c.email, c.phone, c.loyaltybonus, a.Artist, t.paydate, t.paid
         FROM ticket AS t INNER JOIN customer AS c ON t.customerid = c.customerid INNER JOIN concert AS a ON t.concertid = a.concertid ORDER BY ticketid;');
-        return $ticket;
+        $tickets = $ticket->fetchAll();
+        var_dump($tickets);
+        return $tickets;
     }
 
     /**
