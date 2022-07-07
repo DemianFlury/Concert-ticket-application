@@ -63,6 +63,7 @@ class ticketmodel
         $this->concert = $strings["concert"];
         $this->paydate = $date;
         $this->paid = $ispaid;
+<<<<<<< Updated upstream
 
         $customer = db()->prepare('SELECT * FROM `customers` WHERE email= :email');
         $customer->bindParam(':email',$this->email);
@@ -83,9 +84,16 @@ class ticketmodel
         $ticket->bindParam(':customerid,:concertid,:paid,:date',$customer['customerid'],$concertid['concertid'] );
         $ticket->execute();
         
+=======
+        
+        
+        $statement = db()->prepare('INSERT INTO `tasks`(title) VALUES (:title)');
+        $statement->bindParam(':title', $title);
+        $statement->execute();
+>>>>>>> Stashed changes
         header('LOCATION: /framework/task');
     }
-
+    
     /**
      * Erstellt einen neuen Eintrag in der Datenbank.
      */

@@ -109,10 +109,9 @@
             <fieldset>
                 <legend class="form-legend">Konzert</legend>
                 <div class="form-group">
-                    <label class="form-label" for="concert">Konzert</label>
+                    <label class="form-label" for="concert">Konzert auswählen</label>
                     <select class="form-control" id="concert" name="concert">
-                        <option value="">Kein Abendprogramm</option> <? //foreach konzert in der datenbank eine option 
-                                                                        ?>
+                        <option value="">Kein Abendprogramm</option> <? //foreach konzert in der datenbank eine option ?>
                         <option value="Billardturnier">Billardturnier</option>
                     </select>
                 </div>
