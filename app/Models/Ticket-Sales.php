@@ -83,7 +83,7 @@ class ticketmodel
         $ticket->bindParam(':customerid,:concertid,:paid,:date',$customer['customerid'],$concertid['concertid'] );
         $ticket->execute();
         
-        header('LOCATION: /framework/task');
+        header('LOCATION: /Concert-ticket-application/sales');
     }
 
     /**
