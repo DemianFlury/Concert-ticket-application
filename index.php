@@ -2,6 +2,7 @@
 require 'core/bootstrap.php';
 
 $routes = [
+	'/' => 'SalesController@overview',
 	'/overview' => 'SalesController@overview',
 	'/edit' => 'SalesController@edit',
 	'/new' => 'SalesController@newTicket',

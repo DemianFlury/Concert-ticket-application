@@ -7,6 +7,6 @@ class SalesController{
 
     }
     public function newTicket(){
-
+        require 'app/Views/new-sale.view.php';
     }
 }
