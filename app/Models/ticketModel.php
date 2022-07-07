@@ -73,14 +73,14 @@ class ticketmodel
         $concertid->execute();
         
         if($customer == ""){
-        $newCustomer = db()->prepare('INSERT INTO `customers`(name, email, phone, loyalty) VALUES (:name,:email,:phone,:loyalty)');
-        $newCustomer->bindParam(':name,:email,:phone,:loyalty', $this->name, $this->email, $this->phone, $this->loyalty);
+        $newCustomer = db()->prepare('INSERT INTO `customers`(customerName, email, phone, loyalty) VALUES (:customerName,:email,:phone,:loyalty)');
+        $newCustomer->bindParam(':customerName,:email,:phone,:loyalty', $this->name, $this->email, $this->phone, $this->loyalty);
         $newCustomer->execute();
         }
-
+        echo $this->playdate;
         
-        $ticket = db()->prepare('INSERT INTO `tickets`(customerid,concertid,paid,date) VALUES (:customerid,:concertid,:paid,:date)');
-        $ticket->bindParam(':customerid,:concertid,:paid,:date',$customer['customerid'],$concertid['concertid'] );
+        $ticket = db()->prepare('INSERT INTO `tickets`(customerid,concertid,paid,paydate) VALUES (:customerid,:concertid,:paid,:date)');
+        $ticket->bindParam(':customerid,:concertid,:paid,:date',$customer['customerid'],$concertid['concertid'],$this->paid, $this->paydate );
         $ticket->execute();
         
     }
@@ -88,8 +88,12 @@ class ticketmodel
     /**
      * Erstellt einen neuen Eintrag in der Datenbank.
      */
-    public function getall(): int
+    public function getall($ticketid): int
     {
+        $ticket = db()->prepare('SELECT c.customerName, c.email, c.phone, c.loyaltybonus, a.artist, t.paydate, t.paid
+        FROM ticket AS t INNER JOIN customer AS c ON ticket.customerid = customer.customerid INNER JOIN concert AS a ON ticket.concertid = concert.concertid ORDER BY ticketid;');
+        $ticket->bindParam(':email',$this->email);
+        $ticket->execute();
     }
 
     /**

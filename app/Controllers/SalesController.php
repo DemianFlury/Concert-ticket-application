@@ -1,6 +1,7 @@
 <?php
 class SalesController
 {
+    
     public function overview()
     {
     }
@@ -10,6 +11,8 @@ class SalesController
     }
     public function newTicket()
     {
+        $ticketModel = new ticketmodel();
+        $ticketModel->create()
         require 'app/Views/new-sale.view.php';
     }
     public function validate()
