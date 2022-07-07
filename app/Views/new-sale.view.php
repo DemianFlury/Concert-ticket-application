@@ -110,7 +110,7 @@
                 <legend class="form-legend">Konzert</legend>
                 <div class="form-group">
                     <label class="form-label" for="program">Konzert</label>
-                    <select class="form-control" id="program" name="program">
+                    <select class="form-control" id="concert" name="program">
                         <option value="">Kein Abendprogramm</option> <? //foreach konzert in der datenbank eine option 
                                                                         ?>
                         <option value="Billardturnier">Billardturnier</option>

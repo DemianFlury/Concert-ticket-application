@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Das Model "Example" implementiert alle grundlegenden Funktionen einer Datenbank-
  * Anwendung: load (SELECT), save (INSERT oder UPDATE) und delete (DELETE).
@@ -8,7 +9,13 @@ class ticketmodel
     public int $saleid = 0;
     public int $personid = 0;
     public int $concertid = 0;
-    public string $name = '';
+    public string $name = "";
+    public string $email = "";
+    public string $phone = "";
+    public float $loyalty = "";
+    public string $concert = "";
+    public DateTime $paydate = "";
+    public bool $paid = false;
 
     /**
      * Der Konstruktor initialisiert alle Eigenschaften des Objekts
@@ -47,33 +54,30 @@ class ticketmodel
     /**
      * Alle Datensätze aus der Datenbank laden.
      */
-    public function getAll()
+    public function create($strings = [4], $loyal, $date, $ispaid)
     {
-        // Dein Code ...
+        $this->name = $strings["name"];
+        $this->email = $strings["email"];
+        $this->phone = $strings["phone"];
+        $this->loyalty = $loyal;
+        $this->concert = $strings["concert"];
+        $this->paydate = $date;
+        $this->paid = $ispaid;
+
+
+        $statement = db()->prepare('INSERT INTO `tasks`(title) VALUES (:title)');
+        $statement->bindParam(':title', $title);
+        $statement->execute();
+        header('LOCATION: /framework/task');
     }
 
     /**
      * Erstellt einen neuen Eintrag in der Datenbank.
      */
-    public function create(): int
+    public function getall(): int
     {
-        if ($_SERVER['REQUEST_METHOD'] === "POST") {
-            $title = $_POST["title"];
-            $title = trim($title);
-            if($title ===""){
-
-            echo"bitte geben sie eine Aufgabe ein bevor abzusenden!";
-            header('LOCATION: /framework/task');
-            }
-            else{
-                $statement = db()->prepare('INSERT INTO `tasks`(title) VALUES (:title)');
-                $statement->bindParam(':title',$title);
-                $statement->execute();
-                header('LOCATION: /framework/task');
-            }
-        }
     }
-    
+
     /**
      * Aktualisiert die aktuellen Daten in der Datenbank.
      */
@@ -87,12 +91,12 @@ class ticketmodel
      */
     public function delete(int $id = 0): int
     {
-       //Daten Löschen
-       $id = $_GET['id'];
-       $statement = db()->prepare('DELETE FROM `tasks` WHERE id = :id');
-       $statement->bindParam(':id', $id);
-       $statement->execute();
-       header('LOCATION: /framework/task');
+        //Daten Löschen
+        $id = $_GET['id'];
+        $statement = db()->prepare('DELETE FROM `tasks` WHERE id = :id');
+        $statement->bindParam(':id', $id);
+        $statement->execute();
+        header('LOCATION: /framework/task');
 
         return 0;
     }
