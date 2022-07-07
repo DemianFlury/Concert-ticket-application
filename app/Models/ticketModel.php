@@ -57,6 +57,13 @@ class ticketmodel
         // Datensatz NICHT gefunden -> null zurückgeben.
         return null;
     }
+    public function getConcerts()
+    {
+        $concert = db()->query('SELECT * FROM `concerts`');
+        $consertlist = $concert->fetchAll();
+        var_dump($consertlist);
+        return $consertlist;
+    }
 
     /**
      * Alle Datensätze aus der Datenbank laden.
@@ -93,7 +100,9 @@ class ticketmodel
         echo $this->paydate;
         
         $concertinfo = $concert->fetch();
+
         var_dump($concertinfo);
+
         $ticket = db()->prepare('INSERT INTO `tickets`(customerid,concertid,paid,paydate) VALUES (:customerid,:concertid,:paid,:date)');
         $ticket->bindParam(':customerid', $customerinfo['customerid']);
         $ticket->bindParam(':concertid',$concertinfo['concertid']);
