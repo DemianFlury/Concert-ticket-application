@@ -7,6 +7,8 @@
     <title>Übersicht</title>
 </head>
 <body>
-    
+    <?php foreach($allsales as $sale) : ?>
+        <?= $sale ?><br>
+    <?php endforeach; ?>
 </body>
 </html>

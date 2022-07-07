@@ -117,7 +117,7 @@ class ticketmodel
     public function getall()
     {
         $ticket = db()->query('SELECT c.customerName, c.email, c.phone, c.loyaltybonus, a.Artist, t.paydate, t.paid
-        FROM ticket AS t INNER JOIN customer AS c ON t.customerid = c.customerid INNER JOIN concert AS a ON t.concertid = a.concertid ORDER BY ticketid;');
+        FROM tickets AS t INNER JOIN customer AS c ON t.customerid = c.customerid INNER JOIN concerts AS a ON t.concertid = a.concertid ORDER BY ticketid;');
         $tickets = $ticket->fetchAll();
         var_dump($tickets);
         return $tickets;

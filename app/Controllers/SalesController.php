@@ -4,6 +4,9 @@ class SalesController
     
     public function overview()
     {
+        $ticketModel = new ticketmodel();
+        $allsales = $ticketModel->getall();
+        require 'app/Views/sales.view.php';
     }
     public function edit()
     {
