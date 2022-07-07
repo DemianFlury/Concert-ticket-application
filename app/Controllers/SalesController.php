@@ -36,9 +36,6 @@ class SalesController
         } elseif (!str_contains($email, '@')) {
             $errors[] = 'Ihre E-Mail ist ungültig';
         }
-        if ($phone === '') {
-            $errors[] = 'Bitte geben Sie eine Telefonnummer ein.';
-        }
         if (preg_match('/a-z/', $phone)) {
             $errors[] = 'Bitte geben Sie nur Nummern ein.';
         }
