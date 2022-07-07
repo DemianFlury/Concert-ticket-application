@@ -46,7 +46,8 @@ class SalesController
             }
         }
         else{
-            require 'app/Views/sales.view.php';
+            
+            header('LOCATION: /overview');
         }
     }
 }
