@@ -67,12 +67,6 @@
                     } else if (!email.contains('@')) {
                         errors.push('Ihre E-Mail ist ungültig');
                     }
-                    if (phone === '') {
-                        errors.push('Bitte geben Sie eine Telefonnummer ein.');
-                    }
-                    if (people === '') {
-                        errors.push('Bitte geben Sie die Anzahl teilnehmender Personen ein.');
-                    }
                     if (preg_match('/a-z/', $phone)) {
                         errors.push('Bitte geben Sie nur Nummern ein.');
                     }
@@ -99,7 +93,7 @@
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="phone">Telefonnummer</label>
-                    <input class="form-control" type="text" id="phone" name="phone">
+                    <input class="form-control" type="text" id="phone" name="phone" placeholder="nicht erforderlich">
                 </div>
                 <div>
                     <label class="form-label" for="loyalty">Treuerabatt in %</label>

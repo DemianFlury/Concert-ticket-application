@@ -99,7 +99,7 @@
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="phone">Telefonnummer</label>
-                    <input class="form-control" type="text" id="phone" name="phone">
+                    <input class="form-control" type="text" id="phone" name="phone" placeholder="nicht erforderlich">
                 </div>
                 <div>
                     <label class="form-label" for="loyalty">Treuerabatt in %</label>
