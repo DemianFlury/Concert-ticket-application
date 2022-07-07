@@ -95,13 +95,11 @@ class ticketmodel
     /**
      * Erstellt einen neuen Eintrag in der Datenbank.
      */
-    public function getall($ticketid): int
+    public function getall()
     {
-        $ticket = db()->prepare('SELECT c.customerName, c.email, c.phone, c.loyaltybonus, a.artist, t.paydate, t.paid
+        $ticket = db()->query('SELECT c.customerName, c.email, c.phone, c.loyaltybonus, a.artist, t.paydate, t.paid
         FROM ticket AS t INNER JOIN customer AS c ON ticket.customerid = customer.customerid INNER JOIN concert AS a ON ticket.concertid = concert.concertid ORDER BY ticketid;');
-        $ticket->bindParam(':email',$this->email);
-        $ticket->execute();
-        return 1;
+        return $ticket;
     }
 
     /**
@@ -109,7 +107,10 @@ class ticketmodel
      */
     public function update(): int
     {
-        // Dein Code...
+        $ticket = db()->prepare('SELECT c.customerName, c.email, c.phone, c.loyaltybonus, a.artist, t.paydate, t.paid
+        FROM ticket AS t INNER JOIN customer AS c ON ticket.customerid = customer.customerid INNER JOIN concert AS a ON ticket.concertid = concert.concertid where ticketid=:ticketid');
+        $ticket->bindParam(':ticketid',$this);
+        $ticket->execute();
         return 1;
     }
 
