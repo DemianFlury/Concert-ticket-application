@@ -78,15 +78,20 @@ class ticketmodel
         $concert = db()->prepare('SELECT * FROM `concerts` WHERE artist= :concert');
         $concert->bindParam(':concert',$this->concert);
         $concert->execute();
-        
-        if($customer == ""){
+        $customerinfo = $customer->fetch();
+        var_dump($customerinfo);
+        if($customerinfo === false){
         $newCustomer = db()->prepare('INSERT INTO `customer`(customerName, email, phone, loyalty) VALUES (:customerName,:email,:phone,:loyalty)');
-        $newCustomer->bindParam(':customerName,:email,:phone,:loyalty', $this->name, $this->email, $this->phone, $this->loyalty);
+        $newCustomer->bindParam(':customerName', $this->name);
+        $newCustomer->bindParam(':email', $this->email);
+        $newCustomer->bindParam(':phone',$this->phone);
+        $newCustomer->bindParam(':loyalty', $this->loyalty);
         $newCustomer->execute();
-        $this->customer =  $newCustomer;
+        $customerinfo = $customer->fetch();
+        var_dump($customerinfo);
         }
         echo $this->paydate;
-        $customerinfo = $customer->fetch();
+        
         $concertinfo = $concert->fetch();
         $ticket = db()->prepare('INSERT INTO `tickets`(customerid,concertid,paid,paydate) VALUES (:customerid,:concertid,:paid,:date)');
         $ticket->bindParam(':customerid,:concertid,:paid,:date',$customerinfo['customerid'],$concertinfo['concertid'],$this->paid, $this->paydate );
