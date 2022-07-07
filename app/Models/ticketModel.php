@@ -71,7 +71,7 @@ class ticketmodel
         $this->paydate = $date;
         $this->paid = $ispaid;
 
-        $customer = db()->prepare('SELECT * FROM `customers` WHERE email= :email');
+        $customer = db()->prepare('SELECT * FROM `customer` WHERE email= :email');
         $customer->bindParam(':email',$this->email);
         $customer->execute();
         
@@ -80,11 +80,12 @@ class ticketmodel
         $concertid->execute();
         
         if($customer == ""){
-        $newCustomer = db()->prepare('INSERT INTO `customers`(customerName, email, phone, loyalty) VALUES (:customerName,:email,:phone,:loyalty)');
+        $newCustomer = db()->prepare('INSERT INTO `customer`(customerName, email, phone, loyalty) VALUES (:customerName,:email,:phone,:loyalty)');
         $newCustomer->bindParam(':customerName,:email,:phone,:loyalty', $this->name, $this->email, $this->phone, $this->loyalty);
         $newCustomer->execute();
+        $this->customer =   $newCustomer;
         }
-        echo $this->playdate;
+        echo $this->paydate;
         
         $ticket = db()->prepare('INSERT INTO `tickets`(customerid,concertid,paid,paydate) VALUES (:customerid,:concertid,:paid,:date)');
         $ticket->bindParam(':customerid,:concertid,:paid,:date',$customer['customerid'],$concertid['concertid'],$this->paid, $this->paydate );
@@ -105,13 +106,13 @@ class ticketmodel
     /**
      * Aktualisiert die aktuellen Daten in der Datenbank.
      */
-    public function update(): int
+    public function update()
     {
         $ticket = db()->prepare('SELECT c.customerName, c.email, c.phone, c.loyaltybonus, a.artist, t.paydate, t.paid
-        FROM ticket AS t INNER JOIN customer AS c ON ticket.customerid = customer.customerid INNER JOIN concert AS a ON ticket.concertid = concert.concertid where ticketid=:ticketid');
+        FROM ticket AS t INNER JOIN customer AS c ON t.customerid = c.customerid INNER JOIN concert AS a ON t.concertid = c.concertid where ticketid =:ticketid');
         $ticket->bindParam(':ticketid',$this);
         $ticket->execute();
-        return 1;
+        return $ticket;
     }
 
     /**
