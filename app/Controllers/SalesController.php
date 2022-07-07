@@ -46,8 +46,8 @@ class SalesController
             }
         }
         else{
-
-            header('LOCATION: /overview');
+            
+            header('LOCATION: overview');
         }
     }
 }
