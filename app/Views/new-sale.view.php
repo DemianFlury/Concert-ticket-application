@@ -85,11 +85,6 @@
             });
         </script>
 
-        <ul>
-            <?php foreach ($errors as $error) : ?>
-               <li><?= "$error"; ?></li>
-            <?php endforeach; ?>
-        </ul>
         <h1 class="form-title">Neues Ticket erfassen</h1>
         <form action="validate" method="post" id="form">
             <fieldset>

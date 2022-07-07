@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Neues Ticket</title>
+    <title>Ticket bearbeiten</title>
     <base href="<?= ROOT_URL ?>/">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
     <style>
@@ -85,11 +85,6 @@
             });
         </script>
 
-        <ul>
-            <?php foreach ($errors as $error) : ?>
-                <li><?= "$error"; ?></li>
-            <?php endforeach; ?>
-        </ul>
         <h1 class="form-title">Neues Ticket erfassen</h1>
         <form action="validate" method="post" id="form">
             <fieldset>
