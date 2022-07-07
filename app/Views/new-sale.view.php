@@ -76,7 +76,7 @@
                     if (preg_match('/a-z/', $phone)) {
                         errors.push('Bitte geben Sie nur Nummern ein.');
                     }
-                    
+
                     if (errors.length > 0) {
                         alert(errors);
                         e.preventDefault();
@@ -111,14 +111,17 @@
                 <div class="form-group">
                     <label class="form-label" for="program">Konzert</label>
                     <select class="form-control" id="program" name="program">
-                        <option value="">Kein Abendprogramm</option>            <?//foreach konzert in der datenbank eine option ?>
+                        <option value="">Kein Abendprogramm</option> <? //foreach konzert in der datenbank eine option 
+                                                                        ?>
                         <option value="Billardturnier">Billardturnier</option>
                     </select>
                 </div>
+            </fieldset>
             <div class="form-actions">
                 <input class="btn btn-primary" type="submit" value="Anmelden">
             </div>
         </form>
     </main>
 </body>
+
 </html>

@@ -10,3 +10,8 @@ class SalesController{
         require 'app/Views/new-sale.view.php';
     }
 }
+
+public function validate()
+{
+    $_POST[""]
+}

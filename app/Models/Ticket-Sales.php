@@ -57,7 +57,21 @@ class ticketmodel
      */
     public function create(): int
     {
-        // Dein Code...
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            $title = $_POST["title"];
+            $title = trim($title);
+            if($title ===""){
+
+            echo"bitte geben sie eine Aufgabe ein bevor abzusenden!";
+            header('LOCATION: /framework/task');
+            }
+            else{
+                $statement = db()->prepare('INSERT INTO `tasks`(title) VALUES (:title)');
+                $statement->bindParam(':title',$title);
+                $statement->execute();
+                header('LOCATION: /framework/task');
+            }
+        }
     }
     
     /**
@@ -73,18 +87,12 @@ class ticketmodel
      */
     public function delete(int $id = 0): int
     {
-        // Falls keine $id angegeben ist, lösche den aktuell geladenen ($this->id) des Objektes.
-        if (!$id) {
-            $id = $this->id;
-        }
-
-        if ($id > 0) {
-            // Datensatz löschen (DELETE)
-            // Dein Code ...
-            
-            // Gib die Anzahl der gespeicherten Datensätze zurück (1 = Erfolg, 0 = Fehler)
-            // return $statement->rowCount();
-        }
+       //Daten Löschen
+       $id = $_GET['id'];
+       $statement = db()->prepare('DELETE FROM `tasks` WHERE id = :id');
+       $statement->bindParam(':id', $id);
+       $statement->execute();
+       header('LOCATION: /framework/task');
 
         return 0;
     }
