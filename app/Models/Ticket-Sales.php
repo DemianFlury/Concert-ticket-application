@@ -83,9 +83,8 @@ class ticketmodel
         $ticket->bindParam(':customerid,:concertid,:paid,:date',$customer['customerid'],$concertid['concertid'] );
         $ticket->execute();
         
-        header('LOCATION: /Concert-ticket-application/sales');
     }
-
+    
     /**
      * Erstellt einen neuen Eintrag in der Datenbank.
      */

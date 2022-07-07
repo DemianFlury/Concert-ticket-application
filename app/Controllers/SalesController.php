@@ -19,7 +19,7 @@ class SalesController
             $name = trim($_POST['name']) ?? '';
             $email = trim($_POST['email']) ?? '';
             $phone = trim($_POST['phone']) ?? '';
-            $concert = trim($_POST['concert']) ?? '';
+            $concert = trim($_POST['concert'] ?? '');
         }
 
         if ($name === '') {
@@ -46,7 +46,7 @@ class SalesController
             }
         }
         else{
-            
+
             header('LOCATION: /overview');
         }
     }
