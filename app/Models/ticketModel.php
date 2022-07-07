@@ -81,7 +81,7 @@ class ticketmodel
         $customerinfo = $customer->fetch();
         var_dump($customerinfo);
         if($customerinfo === false){
-        $newCustomer = db()->prepare('INSERT INTO `customer`(customerName, email, phone, loyalty) VALUES (:customerName,:email,:phone,:loyalty)');
+        $newCustomer = db()->prepare('INSERT INTO `customer`(customerName, email, phone, loyaltybonus) VALUES (:customerName,:email,:phone,:loyalty)');
         $newCustomer->bindParam(':customerName', $this->name);
         $newCustomer->bindParam(':email', $this->email);
         $newCustomer->bindParam(':phone',$this->phone);
@@ -93,8 +93,12 @@ class ticketmodel
         echo $this->paydate;
         
         $concertinfo = $concert->fetch();
+        var_dump($concertinfo);
         $ticket = db()->prepare('INSERT INTO `tickets`(customerid,concertid,paid,paydate) VALUES (:customerid,:concertid,:paid,:date)');
-        $ticket->bindParam(':customerid,:concertid,:paid,:date',$customerinfo['customerid'],$concertinfo['concertid'],$this->paid, $this->paydate );
+        $ticket->bindParam(':customerid', $customerinfo['customerid']);
+        $ticket->bindParam(':concertid',$concertinfo['concertid']);
+        $ticket->bindParam(':paid',$this->paid);
+        $ticket->bindParam(':date',$this->paydate);
         $ticket->execute();
         
     }
