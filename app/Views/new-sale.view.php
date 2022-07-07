@@ -116,8 +116,10 @@
                 <div class="form-group">
                     <label class="form-label" for="concert">Konzert auswählen</label>
                     <select class="form-control" id="concert" name="concert">
-                        <option value="">Kein Abendprogramm</option> <? //foreach konzert in der datenbank eine option ?>
-                        <option value="Billardturnier">Billardturnier</option>
+                        <option value="">bitte auwählen...</option>
+                        <?php foreach($concertlist as $concert): ?>
+                            <option value=<?= $concert['Artist'] ?>><?= $concert['Artist'] ?></option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
             </fieldset>

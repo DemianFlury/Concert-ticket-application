@@ -11,6 +11,8 @@ class SalesController
     }
     public function newTicket()
     {
+        $ticketmodel = new ticketmodel();
+        $concertlist = $ticketmodel->getConcerts();
         require 'app/Views/new-sale.view.php';
     }
     public function validate()

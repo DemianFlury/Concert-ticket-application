@@ -82,7 +82,7 @@ class ticketmodel
         $customer->bindParam(':email',$this->email);
         $customer->execute();
         
-        $concert = db()->prepare('SELECT * FROM `concerts` WHERE artist= :concert');
+        $concert = db()->prepare('SELECT * FROM `concerts` WHERE Artist= :concert');
         $concert->bindParam(':concert',$this->concert);
         $concert->execute();
         $customerinfo = $customer->fetch();
