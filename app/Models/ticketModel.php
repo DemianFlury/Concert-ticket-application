@@ -94,6 +94,11 @@ class ticketmodel
         $newCustomer->bindParam(':phone',$this->phone);
         $newCustomer->bindParam(':loyalty', $this->loyalty);
         $newCustomer->execute();
+        
+        $customer = db()->prepare('SELECT * FROM `customer` WHERE email= :email');
+        $customer->bindParam(':email',$this->email);
+        $customer->execute();
+        
         $customerinfo = $customer->fetch();
         var_dump($customerinfo);
         }
