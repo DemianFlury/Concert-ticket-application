@@ -94,6 +94,7 @@ class ticketmodel
         FROM ticket AS t INNER JOIN customer AS c ON ticket.customerid = customer.customerid INNER JOIN concert AS a ON ticket.concertid = concert.concertid ORDER BY ticketid;');
         $ticket->bindParam(':email',$this->email);
         $ticket->execute();
+        return 1;
     }
 
     /**
@@ -102,6 +103,7 @@ class ticketmodel
     public function update(): int
     {
         // Dein Code...
+        return 1;
     }
 
     /**

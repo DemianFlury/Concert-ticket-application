@@ -11,20 +11,23 @@ class SalesController
     }
     public function newTicket()
     {
-        $ticketModel = new ticketmodel();
-        $ticketModel->create()
         require 'app/Views/new-sale.view.php';
     }
     public function validate()
     {
+        $ticketModel = new ticketmodel();
         $errors = [];
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = trim($_POST['name']) ?? '';
             $email = trim($_POST['email']) ?? '';
             $phone = trim($_POST['phone']) ?? '';
             $concert = trim($_POST['concert'] ?? '');
+            $loyalty = trim($_POST['loyaltybonus'] ?? 0);
+            $paid = trim($_POST['paid'] ?? false);
+            $date = date('d/m/Y', strtotime("+30 days"));
+            
         }
-
+        
         if ($name === '') {
             $errors[] = 'Bitte geben Sie einen Namen ein.';
         }
@@ -42,14 +45,21 @@ class SalesController
         if ($concert === '') {
             $errors[] = 'Bitte wählen Sie ein Konzert aus.';
         }
-
+        
         if(count($errors) !== 0){
             foreach($errors as $error){
                 echo $error . '<br>';
             }
         }
         else{
-            
+            require 'app/Models/Ticket-Sales.php';
+            $paramarray = [
+                'name' => "$name",
+                'email' => "$email",
+                'phone' => "$phone",
+                'concert' => "$concert"
+            ];
+            $ticketModel->create($paramarray, $loyalty, $date, $paid);
             header('LOCATION: overview');
         }
     }
