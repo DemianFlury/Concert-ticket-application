@@ -64,10 +64,25 @@ class ticketmodel
         $this->paydate = $date;
         $this->paid = $ispaid;
 
+        $customer = db()->prepare('SELECT * FROM `customers` WHERE email= :email');
+        $customer->bindParam(':email',$this->email);
+        $customer->execute();
+        
+        $concertid = db()->prepare('SELECT * FROM `concerts` WHERE artist= :concert');
+        $concertid->bindParam(':concert',$this->concert);
+        $concertid->execute();
+        
+        if($customer == ""){
+        $newCustomer = db()->prepare('INSERT INTO `customers`(name, email, phone, loyalty) VALUES (:name,:email,:phone,:loyalty)');
+        $newCustomer->bindParam(':name,:email,:phone,:loyalty', $this->name, $this->email, $this->phone, $this->loyalty);
+        $newCustomer->execute();
+        }
 
-        $statement = db()->prepare('INSERT INTO `tasks`(title) VALUES (:title)');
-        $statement->bindParam(':title', $title);
-        $statement->execute();
+        
+        $ticket = db()->prepare('INSERT INTO `tickets`(customerid,concertid,paid,date) VALUES (:customerid,:concertid,:paid,:date)');
+        $ticket->bindParam(':customerid,:concertid,:paid,:date',$customer['customerid'],$concertid['concertid'] );
+        $ticket->execute();
+        
         header('LOCATION: /framework/task');
     }
 
