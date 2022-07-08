@@ -22,7 +22,7 @@ class SalesController
         $concertlist = $ticketmodel->getConcerts();
         require 'app/Views/new-sale.view.php';
     }
-    public function validate()
+    public function validate(int $type)
     {
         $ticketModel = new ticketmodel();
         $errors = [];
@@ -57,14 +57,26 @@ class SalesController
             }
         }
         else{
-            $paramarray = [
-                'name' => "$name",
-                'email' => "$email",
-                'phone' => "$phone",
-                'concert' => "$concert"
-            ];
-            $ticketModel->create($paramarray, (int)$loyalty, $date, $paid);
-            header('LOCATION: overview');
+
+            if($type === 1){
+                $paramarray = [
+                    'name' => "$name",
+                    'email' => "$email",
+                    'phone' => "$phone",
+                    'concert' => "$concert"
+                ];
+                $ticketModel->create($paramarray, (int)$loyalty, $date, $paid);
+                header('LOCATION: overview');
+            }
+            elseif($type === 2){
+
+            }
         }
+    }
+    public function validatenew(){
+        $this->validate(1);
+    }
+    public function validateedit(){
+        $this->validate(2);
     }
 }

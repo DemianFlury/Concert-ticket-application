@@ -79,25 +79,25 @@
             });
         </script>
 
-        <h1 class="form-title">Neues Ticket erfassen</h1>
-        <form action="validate" method="post" id="form">
+        <h1 class="form-title">Ticket bearbeiten</h1>
+        <form action="validateedit" method="post" id="form">
             <fieldset>
                 <legend class="form-legend">Kundendaten</legend>
                 <div class="form-group">
                     <label class="form-label" for="name">Vor- und Nachname</label>
-                    <input class="form-control" type="text" id="name" name="name">
+                    <input class="form-control" type="text" id="name" name="name" value="<?= $ticket['customerName']; ?>">
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="email">E-Mail-Adresse</label>
-                    <input class="form-control" type="email" id="email" name="email">
+                    <input class="form-control" type="email" id="email" name="email" value="<?= $ticket['email']; ?>">
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="phone">Telefonnummer</label>
-                    <input class="form-control" type="text" id="phone" name="phone" placeholder="nicht erforderlich">
+                    <input class="form-control" type="text" id="phone" name="phone" placeholder="nicht erforderlich" value="<?= $ticket['phone']; ?>">
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="concert">Treuerabatt</label>
-                    <select class="form-control" id="concert" name="concert">
+                    <select class="form-control" id="concert" name="concert" value="<?= $ticket['loyaltybonus']; ?>">
                         <option value="0">0%</option>
                         <option value="5">5%</option>
                         <option value="10">10%</option>
@@ -110,8 +110,8 @@
                 <div class="form-group">
                     <label class="form-label" for="concert">Konzert auswählen</label>
                     <select class="form-control" id="concert" name="concert">
-                        <option value="">bitte auwählen...</option>
-                        <?php foreach($concertlist as $concert): ?>
+                        <option value="<?= $ticket['artist']; ?>"><?= $ticket['artist']; ?></option>
+                        <?php foreach ($concertlist as $concert) : ?>
                             <option value=<?= $concert['Artist'] ?>><?= $concert['Artist'] ?></option>
                         <?php endforeach; ?>
                     </select>
@@ -120,15 +120,15 @@
             <fieldset>
                 <div>
                     <label class="form-label" for="paydate">Bezahlen bis..</label>
-                    <input type="datetime" id="paydate" name="paydate" class="form-control">
+                    <input type="datetime" id="paydate" name="paydate" class="form-control" value="<?= $ticket['paydate']; ?>">
                 </div>
                 <div class="form-group">
-                    <input type="checkbox" id="paid" name="paid" value="paid">
+                    <input type="checkbox" id="paid" name="paid" value="<?= $ticket['paid']; ?>">
                     <label for="paid">Hat bezahlt?</label>
                 </div>
             </fieldset>
             <div class="form-actions">
-                <input class="btn btn-primary" type="submit" value="Anmelden">
+                <input class="btn btn-primary" type="submit" value="bestätigen">
             </div>
         </form>
     </main>

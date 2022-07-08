@@ -86,7 +86,7 @@
         </script>
 
         <h1 class="form-title">Neues Ticket erfassen</h1>
-        <form action="validate" method="post" id="form">
+        <form action="validatenew" method="post" id="form">
             <fieldset>
                 <legend class="form-legend">Kundendaten</legend>
                 <div class="form-group">
@@ -124,7 +124,7 @@
                 </div>
             </fieldset>
             <div class="form-actions">
-                <input class="btn btn-primary" type="submit" value="Anmelden">
+                <input class="btn btn-primary" type="submit" value="Erfassen">
             </div>
         </form>
     </main>
