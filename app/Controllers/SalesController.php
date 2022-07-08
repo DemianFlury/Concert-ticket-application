@@ -11,7 +11,7 @@ class SalesController
     public function notpayed()
     {
         $ticketModel = new ticketmodel();
-        $notpayed = $ticketModel->notpayed();
+        $allsales = $ticketModel->notpayed();
         require 'app/Views/sales.view.php';
     }
     public function delete()
