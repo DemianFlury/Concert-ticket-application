@@ -8,6 +8,13 @@ class SalesController
         $allsales = $ticketModel->getall();
         require 'app/Views/sales.view.php';
     }
+    public function delete()
+    {
+        $ticketID = $_GET['id'];
+        $ticketmodel = new ticketmodel();
+        $deleteEntries = $ticketmodel->delete($ticketID);
+        header('LOCATION: overview');
+    }
     public function edit()
     {
         $ticketID = $_GET['id'];

@@ -153,15 +153,16 @@ class ticketmodel
     /**
      * Lösche einen Datensatz, entweder mit der angegebenen $id oder falls nicht angegeben, der aktuell geladene.
      */
-    public function delete(int $id = 0): int
+    public function delete(int $id)
     {
         //Daten Löschen
         $id = $_GET['id'];
-        $statement = db()->prepare('DELETE FROM `tasks` WHERE id = :id');
+        $statement = db()->prepare('DELETE FROM `tickets` WHERE id = :id');
         $statement->bindParam(':id', $id);
         $statement->execute();
-        header('LOCATION: /framework/task');
-
+        
+        $statement = db()->query(' DELETE FROM `customer` WHERE CustomerID NOT IN (SELECT CustomerID FROM `tickets`)');
+       
         return 0;
     }
 }

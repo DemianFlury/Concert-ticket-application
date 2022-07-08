@@ -39,6 +39,7 @@
                 <td> <?= $sale['Paid'] ?> </td>
                 <td> <?= $sale['TicketID'] ?> </td>
                 <td><a href="edit?id=<?= $sale['TicketID']; ?>">Bearbeiten</a></td>
+                <td><a href="delete?id=<?= $sale['TicketID']; ?>">Löschen</a></td>
             </tr>
         <?php endforeach; ?>
     </table>
