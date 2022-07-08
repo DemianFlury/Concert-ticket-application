@@ -12,6 +12,7 @@ class SalesController
     {
         $ticketmodel = new ticketmodel();
         $concertlist = $ticketmodel->getConcerts();
+        
         require 'app/Views/mutate-sale.view.php';
     }
     public function newTicket()

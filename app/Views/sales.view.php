@@ -15,6 +15,7 @@
 </head>
 
 <body>
+    <h1>Übersicht</h1>
     <table>
         <tr>
             <td>Name des Kunden</td>
@@ -24,6 +25,8 @@
             <td>Konzert / Künstler</td>
             <td>Ablauf der Zahlung</td>
             <td>Bezahlt</td>
+            <td>Ticket-ID</td>
+            <td>bearbeiten</td>
         </tr>
         <?php foreach ($allsales as $sale) : ?>
             <tr>
@@ -34,6 +37,8 @@
                 <td> <?= $sale['Artist']; ?> </td>
                 <td> <?= $sale['paydate']; ?> </td>
                 <td> <?= $sale['paid'] ?> </td>
+                <td> <?= $sale['TicketID'] ?> </td>
+                <td><a href="edit?id=<?= $sale['TicketID']; ?>">Bearbeiten</a></td>
             </tr>
         <?php endforeach; ?>
     </table>
