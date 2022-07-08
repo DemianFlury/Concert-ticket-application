@@ -157,7 +157,6 @@ class ticketmodel
         $this->concert = $strings["concert"];
         $this->paid = $ispaid;
 
-        $id = $_GET['id'];
         $ticket = db()->prepare('UPDATE `tickets` SET Paid = :paid WHERE TicketID = :id');
         $ticket->bindParam(':paid', $paid);
         $ticket->bindParam(':id', $id);

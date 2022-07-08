@@ -41,6 +41,7 @@ class SalesController
             $loyalty = trim($_POST['loyaltybonus'] ?? 0);
             $paid = trim($_POST['paid'] ?? false);
             $date = date('Y-m-d', strtotime("+30 days"));
+            $ticketid = $_POST['ticketid'];
         }
         
         if ($name === '') {
@@ -65,18 +66,19 @@ class SalesController
         }
         else{
 
+            $paramarray = [
+                'name' => "$name",
+                'email' => "$email",
+                'phone' => "$phone",
+                'concert' => "$concert"
+            ];
             if($type === 1){
-                $paramarray = [
-                    'name' => "$name",
-                    'email' => "$email",
-                    'phone' => "$phone",
-                    'concert' => "$concert"
-                ];
                 $ticketModel->create($paramarray, (int)$loyalty, $date, $paid);
                 header('LOCATION: overview');
             }
             elseif($type === 2){
-
+                $ticketModel->mutate($paramarray, $paid, $ticketid);
+                header('LOCATION: overview');
             }
         }
     }

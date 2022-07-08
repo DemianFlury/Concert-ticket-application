@@ -116,11 +116,15 @@
                         <?php endforeach; ?>
                     </select>
                 </div>
+                <div>
+                    <label class="form-label" for="ticketid">Ticket-ID</label>
+                    <input id="ticketid" name="ticketid" type="text" value="<?= $ticketID ?>" readonly>
+                </div>
             </fieldset>
             <fieldset>
                 <div>
                     <label class="form-label" for="paydate">Bezahlen bis..</label>
-                    <input type="datetime" id="paydate" name="paydate" class="form-control" value="<?= $ticket['paydate']; ?>">
+                    <input class="form-control" type="datetime" id="paydate" name="paydate" class="form-control" value="<?= $ticket['paydate']; ?>">
                 </div>
                 <div class="form-group">
                     <input type="checkbox" id="paid" name="paid" value="1" <?php if($ticket['paid'] === 1) echo 'checked'; ?>>
