@@ -53,30 +53,23 @@
         <script>
             window.addEventListener("DOMContentLoaded", function() {
                 var form = document.querySelector('#form');
-                form.addEventListener('submit', function(e) {
+                form.addEventListener("submit", function(e) {
                     var errors = [];
-                    let name = document.querySelector("#name").value;
-                    let email = document.querySelector("#email").value;
-                    let phone = document.querySelector("#phone").value;
-                    let people = document.querySelector("#people").value;
+                    var name = document.querySelector("#name").value;
+                    var email = document.querySelector("#email").value;
+                    var phone = document.querySelector("#phone").value;
+                    var concert = document.querySelector("#concert").value;
                     if (name === '') {
                         errors.push('Bitte geben Sie einen Namen ein.');
                     }
                     if (email === '') {
                         errors.push('Bitte geben Sie eine Email ein.');
-                    } else if (!email.contains('@')) {
+                    } else if (!email.includes('@')) {
                         errors.push('Ihre E-Mail ist ungültig');
                     }
-                    if (phone === '') {
-                        errors.push('Bitte geben Sie eine Telefonnummer ein.');
-                    }
-                    if (people === '') {
-                        errors.push('Bitte geben Sie die Anzahl teilnehmender Personen ein.');
-                    }
-                    if (preg_match('/a-z/', $phone)) {
+                    if (phone.match('/a-z/')) {
                         errors.push('Bitte geben Sie nur Nummern ein.');
                     }
-
                     if (errors.length > 0) {
                         alert(errors);
                         e.preventDefault();
@@ -117,8 +110,8 @@
                     <label class="form-label" for="concert">Konzert auswählen</label>
                     <select class="form-control" id="concert" name="concert">
                         <option value="">bitte auwählen...</option>
-                        <?php foreach($concertlist as $concert): ?>
-                            <option value='<?= $concert['Artist']?>'><?= $concert['Artist'] ?></option>
+                        <?php foreach ($concertlist as $concert) : ?>
+                            <option value='<?= $concert['Artist'] ?>'><?= $concert['Artist'] ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>

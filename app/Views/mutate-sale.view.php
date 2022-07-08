@@ -53,24 +53,23 @@
         <script>
             window.addEventListener("DOMContentLoaded", function() {
                 var form = document.querySelector('#form');
-                form.addEventListener('submit', function(e) {
+                form.addEventListener("submit", function(e) {
                     var errors = [];
-                    let name = document.querySelector("#name").value;
-                    let email = document.querySelector("#email").value;
-                    let concert = document.querySelector("#phone").value;
-                    let people = document.querySelector("#people").value;
+                    var name = document.querySelector("#name").value;
+                    var email = document.querySelector("#email").value;
+                    var phone = document.querySelector("#phone").value;
+                    var concert = document.querySelector("#concert").value;
                     if (name === '') {
                         errors.push('Bitte geben Sie einen Namen ein.');
                     }
                     if (email === '') {
                         errors.push('Bitte geben Sie eine Email ein.');
-                    } else if (!email.contains('@')) {
+                    } else if (!email.includes('@')) {
                         errors.push('Ihre E-Mail ist ungültig');
                     }
-                    if (preg_match('/a-z/', $phone)) {
+                    if (phone.match('/a-z/')) {
                         errors.push('Bitte geben Sie nur Nummern ein.');
                     }
-
                     if (errors.length > 0) {
                         alert(errors);
                         e.preventDefault();
@@ -124,10 +123,10 @@
             <fieldset>
                 <div>
                     <label class="form-label" for="paydate">Bezahlen bis..</label>
-                    <input class="form-control" type="datetime" id="paydate" name="paydate" class="form-control" value="<?= $ticket['paydate']; ?>">
+                    <input class="form-control" type="datetime" id="paydate" name="paydate" class="form-control" value="<?= $ticket['paydate']; ?> readonly">
                 </div>
                 <div class="form-group">
-                    <input type="checkbox" id="paid" name="paid" value="1" <?php if($ticket['paid'] === 1) echo 'checked'; ?>>
+                    <input type="checkbox" id="paid" name="paid" value="1" <?php if ($ticket['paid'] === 1) echo 'checked'; ?>>
                     <label for="paid">Hat bezahlt?</label>
                 </div>
             </fieldset>
