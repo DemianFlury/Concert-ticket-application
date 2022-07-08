@@ -45,11 +45,11 @@ class SalesController
             $phone = trim($_POST['phone']) ?? '';
             $concert = trim($_POST['concert'] ?? '');
             $loyalty = trim($_POST['loyaltybonus'] ?? 0);
-            $paid = trim($_POST['paid'] ?? false);
+            $paid = trim($_POST['paid'] ?? 0);
             $date = date('Y-m-d', strtotime("+30 days"));
             $ticketid = $_POST['ticketid'];
         }
-        
+        var_dump($paid);
         if ($name === '') {
             $errors[] = 'Bitte geben Sie einen Namen ein.';
         }

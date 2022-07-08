@@ -37,6 +37,7 @@
         </tr>
         <?php foreach ($allsales as $sale) : ?>
             <tr>
+                <?php if($sale['Paid'] === null) $sale['Paid'] = 0; ?>
                 <td> <?= $sale['CustomerName']; ?> </td>
                 <td> <?= $sale['Email']; ?> </td>
                 <td> <?= $sale['Phone']; ?> </td>
