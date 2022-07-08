@@ -160,7 +160,7 @@ public function getConcert(string $artist)
         $this->email = $strings["email"];
         $this->phone = $strings["phone"];
         $this->concert = $strings["concert"];
-        $this->paid = $ispaid;
+        $this->paid = $ispaid;  
 
         $concertInfo = $this->getConcert($this->concert);
         $concertID = $concertInfo["ConcertID"];
@@ -168,6 +168,7 @@ public function getConcert(string $artist)
         $ticket = db()->prepare('UPDATE `tickets` SET Paid = :paid, ConcertID =:concertID WHERE TicketID = :id');
         $ticket->bindParam(':paid', $paid);
         $ticket->bindParam(':concertID', $concertID);
+        $ticket->bindParam(':id', $id);
         $ticket->execute();
         $ticketInfo = $this->getConnections($id);
 
