@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Das Model "Example" implementiert alle grundlegenden Funktionen einer Datenbank-
- * Anwendung: load (SELECT), save (INSERT oder UPDATE) und delete (DELETE).
- */
 class ticketmodel
 {
 
@@ -17,10 +13,7 @@ class ticketmodel
     public string $concert = "";
     public string $paydate;
     public bool $paid = false;
-    /**
-     * Der Konstruktor initialisiert alle Eigenschaften des Objekts
-     * Für neue Datensätze kann die $id auf 0 gesetzt werden.
-     */
+
     public function __construct()
     {
         $this->saleid = 0;
@@ -36,9 +29,7 @@ class ticketmodel
         return $this;
     }
 
-    /**
-     * Datensatz mit gegebener ID von der Datenbank ins Objekt laden
-     */
+
     public function find(int $id): ?self
     {
         $statement = db()->prepare('SELECT * FROM example WHERE id = :id LIMIT 1');
@@ -65,9 +56,7 @@ class ticketmodel
         return $consertlist;
     }
 
-    /**
-     * Alle Datensätze aus der Datenbank laden.
-     */
+
     public function create(array $strings, int $loyal, $date, $ispaid)
     {
         $this->name = $strings["name"];
@@ -93,7 +82,7 @@ class ticketmodel
         $concertinfo = $concert->fetch();
         echo "jetzt kommen concerts:  ";
         var_dump($concertinfo);
-        
+
 
         //var_dump($customerinfo);
         if ($customerinfo === false) {
@@ -108,7 +97,6 @@ class ticketmodel
             $customer->execute();
 
             $customerinfo = $customer->fetch();
-            
         }
         echo "hier kommt die id:  ";
         var_dump($customerinfo['CustomerID']);
@@ -121,25 +109,30 @@ class ticketmodel
         $ticket->bindParam(':paydate', $this->paydate);
         $ticket->bindParam(':loyaltybonus', $this->loyalty);
         $ticket->execute();
-
     }
 
-    /**
-     * Erstellt einen neuen Eintrag in der Datenbank.
-     */
+
     public function getall()
     {
         $ticket = db()->query('SELECT t.TicketID, c.CustomerName, c.Email, c.Phone, t.loyaltybonus, a.Artist, t.Paydate, t.Paid
         FROM tickets AS t INNER JOIN customer AS c ON t.customerID = c.customerID INNER JOIN concerts AS a ON t.ConcertID = a.ConcertID ORDER BY TicketID;');
-        $ticket->execute();
         $tickets = $ticket->fetchAll();
         //var_dump($tickets);
         return $tickets;
     }
+    public function notPayed()
+    {
+        $ticket = db()->prepare('SELECT t.TicketID, c.CustomerName, c.Email, c.Phone, t.loyaltybonus, a.Artist, t.Paydate, t.Paid
+        FROM tickets AS t INNER JOIN customer AS c ON t.customerID = c.customerID INNER JOIN concerts AS a ON t.ConcertID = a.ConcertID WHERE t.Paid === :paid  ORDER BY t.Paydate;');
+        $ticket->bindParam(':paid', false);
+        $ticket->execute();
 
-    /**
-     * Aktualisiert die aktuellen Daten in der Datenbank.
-     */
+        $tickets = $ticket->fetchAll();
+        var_dump($tickets);
+        return $tickets;
+    }
+
+
     public function getConnections(int $ticketID)
     {
         $ticket = db()->prepare('SELECT t.CustomerID, t.ConcertID FROM tickets AS t WHERE TicketID =:ticketid');
@@ -158,7 +151,7 @@ class ticketmodel
         var_dump($ticketInfo);
         return $ticketInfo;
     }
-    public function mutate(array $strings,bool $ispaid,int $id)
+    public function mutate(array $strings, bool $ispaid, int $id)
     {
         $this->name = $strings["name"];
         $this->email = $strings["email"];
@@ -171,8 +164,8 @@ class ticketmodel
         $ticket->bindParam(':id', $id);
         $ticket->execute();
         $ticketInfo = $this->getConnections($id);
-        
-        
+
+
         $customer = db()->prepare('UPDATE `customer` SET CustomerName = :CustomerName, Email =:email, Phone =:phone WHERE CustomerID = :id');
         $customer->bindParam(':CustomerName', $this->name);
         $customer->bindParam(':email', $this->email);
@@ -180,16 +173,13 @@ class ticketmodel
         $customer->bindParam(':id', $ticketInfo["CustomerID"]);
         $customer->execute();
 
-        
+
         $concert = db()->prepare('UPDATE `concerts` SET Artist = :concert WHERE ConcertID = :id');
         $concert->bindParam(':concert', $this->concert);
         $concert->bindParam(':id', $ticketInfo["ConcertID"]);
         $concert->execute();
     }
 
-    /**
-     * Lösche einen Datensatz, entweder mit der angegebenen $id oder falls nicht angegeben, der aktuell geladene.
-     */
     public function delete(int $id)
     {
         //Daten Löschen
@@ -197,9 +187,9 @@ class ticketmodel
         $ticket = db()->prepare('DELETE FROM `tickets` WHERE TicketID = :id');
         $ticket->bindParam(':id', $id);
         $ticket->execute();
-        
+
         $ticket = db()->query(' DELETE FROM `customer` WHERE CustomerID NOT IN (SELECT CustomerID FROM `tickets`)');
-       
+
         return 0;
     }
 }

@@ -8,6 +8,12 @@ class SalesController
         $allsales = $ticketModel->getall();
         require 'app/Views/sales.view.php';
     }
+    public function notpayed()
+    {
+        $ticketModel = new ticketmodel();
+        $notpayed = $ticketModel->notpayed();
+        require 'app/Views/sales.view.php';
+    }
     public function delete()
     {
         $ticketID = $_GET['id'];

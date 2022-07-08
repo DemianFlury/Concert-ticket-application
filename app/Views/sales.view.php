@@ -21,6 +21,7 @@
     <h1>Übersicht</h1>
     <div>
         <a href="new">neuer eintrag</a>
+        <a href="notpayed">offene Rechnungen</a>
     </div>
     <table>
         <tr>
