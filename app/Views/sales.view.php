@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Übersicht</title>
     <style>
+        div{
+            font-size: 20px;
+        }
         td {
             border: black solid 1px;
             font-size: 20px;
@@ -16,6 +19,9 @@
 
 <body>
     <h1>Übersicht</h1>
+    <div>
+        <a href="new">neuer eintrag</a>
+    </div>
     <table>
         <tr>
             <td>Name des Kunden</td>
@@ -23,10 +29,10 @@
             <td>Telefonnummer</td>
             <td>Treuebonus</td>
             <td>Konzert / Künstler</td>
-            <td>Ablauf der Zahlung</td>
+            <td>Ablauf der Zahlung (yyyy-mm-dd) </td>
             <td>Bezahlt</td>
             <td>Ticket-ID</td>
-            <td>bearbeiten</td>
+
         </tr>
         <?php foreach ($allsales as $sale) : ?>
             <tr>

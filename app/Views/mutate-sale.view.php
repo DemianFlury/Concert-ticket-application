@@ -123,7 +123,7 @@
                     <input type="datetime" id="paydate" name="paydate" class="form-control" value="<?= $ticket['paydate']; ?>">
                 </div>
                 <div class="form-group">
-                    <input type="checkbox" id="paid" name="paid" value="<?= $ticket['paid']; ?>">
+                    <input type="checkbox" id="paid" name="paid" value="1" <?php if($ticket['paid'] === 1) echo 'checked'; ?>>
                     <label for="paid">Hat bezahlt?</label>
                 </div>
             </fieldset>
