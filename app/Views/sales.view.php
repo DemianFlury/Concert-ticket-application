@@ -66,6 +66,9 @@
                     echo "⌛";}
                     else{
                     echo "⏳";}
+                    }
+                    else{
+                    echo "🟩🟩🟩🟩";
                     }?> </td>
                     
                 <td><a href="edit?id=<?= $sale['TicketID']; ?>">Bearbeiten</a></td>
