@@ -75,7 +75,6 @@ public function getConcert(string $artist)
         $this->paydate = $date;
         $this->paid = $ispaid;
 
-        var_dump($this->concert);
 
         $customer = db()->prepare('SELECT * FROM `customer` WHERE Email= :email');
         $customer->bindParam(':email', $this->email);
@@ -101,8 +100,6 @@ public function getConcert(string $artist)
 
             $customerinfo = $customer->fetch();
         }
-        echo "hier kommt die id:  ";
-        var_dump($customerinfo['CustomerID']);
 
 
         $ticket = db()->prepare('INSERT INTO `tickets`(Customerid,Concertid,Paid,Paydate,loyaltybonus) VALUES (:customerid,:concertid,:paid,:paydate,:loyaltybonus)');
@@ -111,7 +108,6 @@ public function getConcert(string $artist)
         $ticket->bindParam(':paid', $this->paid);
         $ticket->bindParam(':paydate', $this->paydate);
         $ticket->bindParam(':loyaltybonus', $this->loyalty);
-        var_dump($this->loyalty);
         $ticket->execute();
     }
 
@@ -147,7 +143,6 @@ public function getConcert(string $artist)
         $ticket->bindParam(':ticketid', $id);
         $ticket->execute();
         $ticketInfo = $ticket->fetch();
-        var_dump($ticketInfo);
         return $ticketInfo;
     }
     public function mutate(array $strings, bool $ispaid, int $id)
@@ -159,9 +154,7 @@ public function getConcert(string $artist)
         $this->paid = $ispaid;  
 
         $concertInfo = $this->getConcert($this->concert);
-        var_dump($concertInfo);
         $concertID = $concertInfo["ConcertID"];
-        var_dump($concertID);
 
         $ticket = db()->prepare('UPDATE `tickets` SET Paid = :paid, ConcertID =:concertID WHERE TicketID = :id');
         $ticket->bindParam(':paid', $this->paid);
