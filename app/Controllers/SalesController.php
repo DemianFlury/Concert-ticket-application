@@ -57,7 +57,8 @@ class SalesController
         } elseif (!str_contains($email, '@')) {
             $errors[] = 'Ihre E-Mail ist ungültig';
         }
-        if (preg_match('/[0-9\+\-\(\) ]{3,}$/', $phone) == false) {
+        if($phone = '');
+        elseif (preg_match('/[0-9\+\-\(\) ]{0,}$/', $phone) == false) {
             $errors[] = 'Telefonnummern erlauben nur Ziffern 0-9 und +-()';
         }
         if ($concert === '') {

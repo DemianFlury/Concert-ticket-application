@@ -67,7 +67,7 @@
                     } else if (!email.includes('@')) {
                         errors.push('Ihre E-Mail ist ungültig');
                     }
-                    if (phone.match('/a-z/')) {
+                    if (phone.match('/[0-9\+\-\(\) ]{0,}$/')) {
                         errors.push('Bitte geben Sie nur Nummern ein.');
                     }
                     if (errors.length > 0) {
