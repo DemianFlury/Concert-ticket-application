@@ -46,6 +46,7 @@
             <td>Ablauf der Zahlung (yyyy-mm-dd) </td>
             <td>Bezahlt</td>
             <td>Ticket-ID</td>
+            <td>In der Bezahlfrist</td>
 
         </tr>
         <?php foreach ($allsales as $sale) : ?>
@@ -59,8 +60,17 @@
                 <td> <?= $sale['Paydate']; ?> </td>
                 <td> <?= $sale['Paid'] ?> </td>
                 <td> <?= $sale['TicketID'] ?> </td>
+                <td><?php 
+                    if($sale['Paid'] == "0"){
+                    if($sale['Paydate'] < date('Y-m-d')){
+                    echo "⌛";}
+                    else{
+                    echo "⏳";}
+                    }?> </td>
+                    
                 <td><a href="edit?id=<?= $sale['TicketID']; ?>">Bearbeiten</a></td>
                 <td><a href="delete?id=<?= $sale['TicketID']; ?>">Löschen</a></td>
+                
             </tr>
         <?php endforeach; ?>
     </table>
