@@ -149,6 +149,33 @@ class ticketmodel
         $theticket = $ticket->fetch();
         return $theticket;
     }
+    public function Mutate(array $strings,bool $ispaid,int $id)
+    {
+        $this->name = $strings["name"];
+        $this->email = $strings["email"];
+        $this->phone = $strings["phone"];
+        $this->concert = $strings["concert"];
+        $this->paid = $ispaid;
+
+        $id = $_GET['id'];
+        $ticket = db()->prepare('UPDATE `tickets` SET Paid = :paid WHERE TicketID = :id');
+        $ticket->bindParam(':paid', $paid);
+        $ticket->bindParam(':id', $id);
+        $ticket->execute();
+        
+        $customer = db()->prepare('UPDATE `customer` SET CustomerName = :CustomerName, Email =:email, Phone =:phone,  WHERE CustomerID = :id');
+        $customer->bindParam(':CustomerName', $name);
+        $customer->bindParam(':email', $email);
+        $customer->bindParam(':phone', $phone);
+        $customer->bindParam(':id', $id);
+        $customer->execute();
+
+        
+        $concert = db()->prepare('UPDATE `concerts` SET Artist = :concert WHERE ConcertID = :id');
+        $concert->bindParam(':concert', $concert);
+        $concert->bindParam(':id', $id);
+        $concert->execute();
+    }
 
     /**
      * Lösche einen Datensatz, entweder mit der angegebenen $id oder falls nicht angegeben, der aktuell geladene.
@@ -157,11 +184,11 @@ class ticketmodel
     {
         //Daten Löschen
         $id = $_GET['id'];
-        $statement = db()->prepare('DELETE FROM `tickets` WHERE TicketID = :id');
-        $statement->bindParam(':id', $id);
-        $statement->execute();
+        $ticket = db()->prepare('DELETE FROM `tickets` WHERE TicketID = :id');
+        $ticket->bindParam(':id', $id);
+        $ticket->execute();
         
-        $statement = db()->query(' DELETE FROM `customer` WHERE CustomerID NOT IN (SELECT CustomerID FROM `tickets`)');
+        $ticket = db()->query(' DELETE FROM `customer` WHERE CustomerID NOT IN (SELECT CustomerID FROM `tickets`)');
        
         return 0;
     }
