@@ -6,7 +6,7 @@
  */
 class ticketmodel
 {
-    
+
     public int $saleid;
     public int $personid = 0;
     public int $concertid = 0;
@@ -61,7 +61,7 @@ class ticketmodel
     {
         $concert = db()->query('SELECT * FROM `concerts`');
         $consertlist = $concert->fetchAll();
-        var_dump($consertlist);
+        //var_dump($consertlist);
         return $consertlist;
     }
 
@@ -78,53 +78,55 @@ class ticketmodel
         $this->paydate = $date;
         $this->paid = $ispaid;
 
-        $customer = db()->prepare('SELECT * FROM `customer` WHERE email= :email');
-        $customer->bindParam(':email',$this->email);
+        var_dump($this->concert);
+
+        $customer = db()->prepare('SELECT * FROM `customer` WHERE Email= :email');
+        $customer->bindParam(':email', $this->email);
         $customer->execute();
-        
+
         $concert = db()->prepare('SELECT * FROM `concerts` WHERE Artist= :concert');
-        $concert->bindParam(':concert',$this->concert);
+        $concert->bindParam(':concert', $this->concert);
         $concert->execute();
         $customerinfo = $customer->fetch();
-        var_dump($customerinfo);
-        if($customerinfo === false){
-        $newCustomer = db()->prepare('INSERT INTO `customer`(customerName, email, phone, loyaltybonus) VALUES (:customerName,:email,:phone,:loyalty)');
-        $newCustomer->bindParam(':customerName', $this->name);
-        $newCustomer->bindParam(':email', $this->email);
-        $newCustomer->bindParam(':phone',$this->phone);
-        $newCustomer->bindParam(':loyalty', $this->loyalty);
-        $newCustomer->execute();
-        
-        $customer = db()->prepare('SELECT * FROM `customer` WHERE email= :email');
-        $customer->bindParam(':email',$this->email);
-        $customer->execute();
-        
-        $customerinfo = $customer->fetch();
-        var_dump($customerinfo);
+        var_dump()
+
+        //var_dump($customerinfo);
+        if ($customerinfo === false) {
+            $newCustomer = db()->prepare('INSERT INTO `customer`(CustomerName, Email, Phone) VALUES (:customerName,:email,:phone)');
+            $newCustomer->bindParam(':customerName', $this->name);
+            $newCustomer->bindParam(':email', $this->email);
+            $newCustomer->bindParam(':phone', $this->phone);
+            $newCustomer->execute();
+
+            $customer = db()->prepare('SELECT * FROM `customer` WHERE email= :email');
+            $customer->bindParam(':email', $this->email);
+            $customer->execute();
+
+            $customerinfo = $customer->fetch();
+            //var_dump($customerinfo);
         }
-        echo $this->paydate;
-        
         $concertinfo = $concert->fetch();
+        var_dump($concertinfo);
 
 
-        $ticket = db()->prepare('INSERT INTO `tickets`(customerid,concertid,paid,paydate) VALUES (:customerid,:concertid,:paid,:date)');
-        $ticket->bindParam(':customerid', $customerinfo['customerid']);
-        $ticket->bindParam(':concertid',$concertinfo['concertid']);
-        $ticket->bindParam(':paid',$this->paid);
-        $ticket->bindParam(':date',$this->paydate);
+        $ticket = db()->prepare('INSERT INTO `tickets`(Customerid,Concertid,Paid,Paydate,loyaltybonus) VALUES (:customerid,:concertid,:paid,:paydate,:loyaltybonus)');
+        $ticket->bindParam(':customerid', $customerinfo['Customerid']);
+        $ticket->bindParam(':concertid', $concertinfo['Concertid']);
+        $ticket->bindParam(':paid', $this->paid);
+        $ticket->bindParam(':paydate', $this->paydate);
+        $ticket->bindParam(':loyaltybonus', $this->loyalty);
         $ticket->execute();
-        
     }
-    
+
     /**
      * Erstellt einen neuen Eintrag in der Datenbank.
      */
     public function getall()
     {
         $ticket = db()->query('SELECT c.customerName, c.email, c.phone, c.loyaltybonus, a.Artist, t.paydate, t.paid
-        FROM tickets AS t INNER JOIN customer AS c ON t.customerid = c.customerid INNER JOIN concerts AS a ON t.concertid = a.concertid ORDER BY ticketid;');
+        FROM tickets AS t INNER JOIN customer AS c ON t.customerid = c.customerid INNER JOIN concerts AS a ON t.concertid = a.Concertid ORDER BY ticketid;');
         $tickets = $ticket->fetchAll();
-        var_dump($tickets);
+        //var_dump($tickets);
         return $tickets;
     }
 
@@ -135,7 +137,7 @@ class ticketmodel
     {
         $ticket = db()->prepare('SELECT c.customerName, c.email, c.phone, c.loyaltybonus, a.artist, t.paydate, t.paid
         FROM ticket AS t INNER JOIN customer AS c ON t.customerid = c.customerid INNER JOIN concert AS a ON t.concertid = c.concertid where ticketid =:ticketid');
-        $ticket->bindParam(':ticketid',$this);
+        $ticket->bindParam(':ticketid', $this);
         $ticket->execute();
         return $ticket;
     }
