@@ -52,8 +52,8 @@ class SalesController
         } elseif (!str_contains($email, '@')) {
             $errors[] = 'Ihre E-Mail ist ungültig';
         }
-        if (preg_match('/a-z/', $phone)) {
-            $errors[] = 'Bitte geben Sie nur Nummern ein.';
+        if (var_dump(preg_match('/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/', $phone)) === false) {
+            $errors[] = 'Telefonnummern erlauben nur Ziffern 0-9 und +-()';
         }
         if ($concert === '') {
             $errors[] = 'Bitte wählen Sie ein Konzert aus.';
