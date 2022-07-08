@@ -55,7 +55,8 @@ class SalesController
         }
         if ($email === '') {
             $errors[] = 'Bitte geben Sie eine Email ein.';
-        } elseif (!str_contains($email, '@')) {
+        }
+        if (strpos($email, '@') === false) {
             $errors[] = 'Ihre E-Mail ist ungültig';
         }
         if($phone = '');
