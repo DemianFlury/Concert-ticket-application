@@ -149,7 +149,7 @@ class ticketmodel
         $theticket = $ticket->fetch();
         return $theticket;
     }
-    public function Mutate(array $strings,bool $ispaid,int $id)
+    public function mutate(array $strings,bool $ispaid,int $id)
     {
         $this->name = $strings["name"];
         $this->email = $strings["email"];
