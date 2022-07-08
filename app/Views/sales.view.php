@@ -11,8 +11,10 @@
             font-size: 20px;
         }
         td {
-            border: black solid 1px;
+            border: grey solid 2px;
             font-size: 20px;
+            padding: 5px;
+            margin: 0px;
         }
     </style>
 </head>

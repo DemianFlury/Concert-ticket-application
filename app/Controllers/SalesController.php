@@ -49,7 +49,6 @@ class SalesController
             $date = date('Y-m-d', strtotime("+30 days"));
             $ticketid = $_POST['ticketid'];
         }
-        var_dump($paid);
         if ($name === '') {
             $errors[] = 'Bitte geben Sie einen Namen ein.';
         }
