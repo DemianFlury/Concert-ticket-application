@@ -83,12 +83,17 @@ class ticketmodel
         $customer = db()->prepare('SELECT * FROM `customer` WHERE Email= :email');
         $customer->bindParam(':email', $this->email);
         $customer->execute();
+        $customerinfo = $customer->fetch();
+        //echo "jetzt kommen customer";
+        //var_dump($customerinfo);
 
         $concert = db()->prepare('SELECT * FROM `concerts` WHERE Artist= :concert');
         $concert->bindParam(':concert', $this->concert);
         $concert->execute();
-        $customerinfo = $customer->fetch();
-        var_dump()
+        $concertinfo = $concert->fetch();
+        echo "jetzt kommen concerts:  ";
+        var_dump($concertinfo);
+        
 
         //var_dump($customerinfo);
         if ($customerinfo === false) {
@@ -105,8 +110,7 @@ class ticketmodel
             $customerinfo = $customer->fetch();
             //var_dump($customerinfo);
         }
-        $concertinfo = $concert->fetch();
-        var_dump($concertinfo);
+       
 
 
         $ticket = db()->prepare('INSERT INTO `tickets`(Customerid,Concertid,Paid,Paydate,loyaltybonus) VALUES (:customerid,:concertid,:paid,:paydate,:loyaltybonus)');
@@ -123,8 +127,8 @@ class ticketmodel
      */
     public function getall()
     {
-        $ticket = db()->query('SELECT c.customerName, c.email, c.phone, c.loyaltybonus, a.Artist, t.paydate, t.paid
-        FROM tickets AS t INNER JOIN customer AS c ON t.customerid = c.customerid INNER JOIN concerts AS a ON t.concertid = a.Concertid ORDER BY ticketid;');
+        $ticket = db()->query('SELECT t.TicketID c.CustomerName, c.Email, c.Phone, c.loyaltybonus, a.Artist, t.Paydate, t.Paid
+        FROM tickets AS t INNER JOIN customer AS c ON t.customerID = c.customerID INNER JOIN concerts AS a ON t.ConcertID = a.ConcertID ORDER BY TicketID;');
         $tickets = $ticket->fetchAll();
         //var_dump($tickets);
         return $tickets;
