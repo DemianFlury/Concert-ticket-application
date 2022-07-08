@@ -140,14 +140,23 @@ class ticketmodel
     /**
      * Aktualisiert die aktuellen Daten in der Datenbank.
      */
-    public function getTicket(int $id)
+    public function getConnections(int $ticketID)
     {
-        $ticket = db()->prepare('SELECT t.TicketID, c.customerName, c.email, c.phone, t.loyaltybonus, a.artist, t.paydate, t.paid
-        FROM tickets AS t INNER JOIN customer AS c ON t.customerid = c.customerid INNER JOIN concerts AS a ON t.ConcertID = a.ConcertID where ticketid =:ticketid');
-        $ticket->bindParam(':ticketid', $id);
+        $ticket = db()->prepare('SELECT t.CustomerID, t.ConcertID FROM tickets AS t WHERE TicketID =:ticketid');
+        $ticket->bindParam(':ticketid', $ticketID);
         $ticket->execute();
         $theticket = $ticket->fetch();
         return $theticket;
+    }
+    public function getTicket(int $id)
+    {
+        $ticket = db()->prepare('SELECT t.TicketID, c.customerName, c.email, c.phone, t.loyaltybonus, a.artist, t.paydate, t.paid
+        FROM tickets AS t INNER JOIN customer AS c ON t.customerid = c.customerid INNER JOIN concerts AS a ON t.ConcertID = a.ConcertID where TicketID =:ticketid');
+        $ticket->bindParam(':ticketid', $id);
+        $ticket->execute();
+        $ticketInfo = $ticket->fetch();
+        var_dump($ticketInfo);
+        return $ticketInfo;
     }
     public function mutate(array $strings,bool $ispaid,int $id)
     {
@@ -161,18 +170,20 @@ class ticketmodel
         $ticket->bindParam(':paid', $paid);
         $ticket->bindParam(':id', $id);
         $ticket->execute();
+        $ticketInfo = $this->getConnections($id);
         
-        $customer = db()->prepare('UPDATE `customer` SET CustomerName = :CustomerName, Email =:email, Phone =:phone,  WHERE CustomerID = :id');
-        $customer->bindParam(':CustomerName', $name);
-        $customer->bindParam(':email', $email);
-        $customer->bindParam(':phone', $phone);
-        $customer->bindParam(':id', $id);
+        
+        $customer = db()->prepare('UPDATE `customer` SET CustomerName = :CustomerName, Email =:email, Phone =:phone WHERE CustomerID = :id');
+        $customer->bindParam(':CustomerName', $this->name);
+        $customer->bindParam(':email', $this->email);
+        $customer->bindParam(':phone', $this->phone);
+        $customer->bindParam(':id', $ticketInfo["CustomerID"]);
         $customer->execute();
 
         
         $concert = db()->prepare('UPDATE `concerts` SET Artist = :concert WHERE ConcertID = :id');
-        $concert->bindParam(':concert', $concert);
-        $concert->bindParam(':id', $id);
+        $concert->bindParam(':concert', $this->concert);
+        $concert->bindParam(':id', $ticketInfo["ConcertID"]);
         $concert->execute();
     }
 
