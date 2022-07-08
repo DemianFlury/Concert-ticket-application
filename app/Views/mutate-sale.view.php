@@ -96,11 +96,8 @@
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="concert">Treuerabatt</label>
-                    <select class="form-control" id="concert" name="concert" value="<?= $ticket['loyaltybonus']; ?>">
-                        <option value="0">0%</option>
-                        <option value="5">5%</option>
-                        <option value="10">10%</option>
-                        <option value="15">15%</option>
+                    <select class="form-control" id="concert" name="concert" value="<?= $ticket['loyaltybonus']; ?> "readonly>
+                        <option value='<?= $concert['loyaltybonus'] ?>'><?= $ticket['loyaltybonus']; ?></option>
                     </select>
                 </div>
             </fieldset>

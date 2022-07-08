@@ -111,6 +111,7 @@ public function getConcert(string $artist)
         $ticket->bindParam(':paid', $this->paid);
         $ticket->bindParam(':paydate', $this->paydate);
         $ticket->bindParam(':loyaltybonus', $this->loyalty);
+        var_dump($this->loyalty);
         $ticket->execute();
     }
 
