@@ -55,10 +55,10 @@ class ticketmodel
         //var_dump($consertlist);
         return $consertlist;
     }
-public function getConcert(string $concert)
+public function getConcert(string $artist)
 {
     $concert = db()->prepare('SELECT * FROM `concerts` WHERE Artist= :concert');
-        $concert->bindParam(':concert', $concert);
+        $concert->bindParam(':concert', $artist);
         $concert->execute();
         $concertinfo = $concert->fetch();
         return $concertinfo;
