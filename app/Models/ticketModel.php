@@ -143,7 +143,7 @@ class ticketmodel
     public function getTicket(int $id)
     {
         $ticket = db()->prepare('SELECT c.customerName, c.email, c.phone, t.loyaltybonus, a.artist, t.paydate, t.paid
-        FROM tickets AS t INNER JOIN customer AS c ON t.customerid = c.customerid INNER JOIN concerts AS a ON t.ConcertID = c.ConcertID where ticketid =:ticketid');
+        FROM tickets AS t INNER JOIN customer AS c ON t.customerid = c.customerid INNER JOIN concerts AS a ON t.ConcertID = a.ConcertID where ticketid =:ticketid');
         $ticket->bindParam(':ticketid', $id);
         $ticket->execute();
         $theticket = $ticket->fetch();
