@@ -55,7 +55,15 @@ class ticketmodel
         //var_dump($consertlist);
         return $consertlist;
     }
-
+public function getConcert(string $concert)
+{
+    $concert = db()->prepare('SELECT * FROM `concerts` WHERE Artist= :concert');
+        $concert->bindParam(':concert', $concert);
+        $concert->execute();
+        $concertinfo = $concert->fetch();
+        return $concertinfo;
+        
+}
 
     public function create(array $strings, int $loyal, $date, $ispaid)
     {
@@ -76,12 +84,7 @@ class ticketmodel
         //echo "jetzt kommen customer";
         //var_dump($customerinfo);
 
-        $concert = db()->prepare('SELECT * FROM `concerts` WHERE Artist= :concert');
-        $concert->bindParam(':concert', $this->concert);
-        $concert->execute();
-        $concertinfo = $concert->fetch();
-        echo "jetzt kommen concerts:  ";
-        var_dump($concertinfo);
+        $concertinfo = $this->getConcert($this->concert);
 
 
         //var_dump($customerinfo);
@@ -159,9 +162,12 @@ class ticketmodel
         $this->concert = $strings["concert"];
         $this->paid = $ispaid;
 
-        $ticket = db()->prepare('UPDATE `tickets` SET Paid = :paid WHERE TicketID = :id');
+        $concertInfo = $this->getConcert($this->concert);
+        $concertID = $concertInfo["ConcertID"];
+
+        $ticket = db()->prepare('UPDATE `tickets` SET Paid = :paid, ConcertID =:concertID WHERE TicketID = :id');
         $ticket->bindParam(':paid', $paid);
-        $ticket->bindParam(':id', $id);
+        $ticket->bindParam(':concertID', $concertID);
         $ticket->execute();
         $ticketInfo = $this->getConnections($id);
 
@@ -172,12 +178,6 @@ class ticketmodel
         $customer->bindParam(':phone', $this->phone);
         $customer->bindParam(':id', $ticketInfo["CustomerID"]);
         $customer->execute();
-
-
-        $concert = db()->prepare('UPDATE `concerts` SET Artist = :concert WHERE ConcertID = :id');
-        $concert->bindParam(':concert', $this->concert);
-        $concert->bindParam(':id', $ticketInfo["ConcertID"]);
-        $concert->execute();
     }
 
     public function delete(int $id)
