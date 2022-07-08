@@ -55,15 +55,14 @@ class ticketmodel
         //var_dump($consertlist);
         return $consertlist;
     }
-public function getConcert(string $artist)
-{
-    $concert = db()->prepare('SELECT * FROM `concerts` WHERE Artist= :concert');
+    public function getConcert(string $artist)
+    {
+        $concert = db()->prepare('SELECT * FROM `concerts` WHERE Artist= :concert');
         $concert->bindParam(':concert', $artist);
         $concert->execute();
         $concertinfo = $concert->fetch();
         return $concertinfo;
-        
-}
+    }
 
     public function create(array $strings, int $loyal, $date, $ispaid)
     {
@@ -151,7 +150,7 @@ public function getConcert(string $artist)
         $this->email = $strings["email"];
         $this->phone = $strings["phone"];
         $this->concert = $strings["concert"];
-        $this->paid = $ispaid;  
+        $this->paid = $ispaid;
 
         $concertInfo = $this->getConcert($this->concert);
         $concertID = $concertInfo["ConcertID"];

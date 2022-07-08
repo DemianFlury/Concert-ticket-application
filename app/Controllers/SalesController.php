@@ -47,6 +47,7 @@ class SalesController
             $loyalty = trim($_POST['loyaltybonus'] ?? 0);
             $paid = trim($_POST['paid'] ?? 0);
             $date = date('Y-m-d', strtotime("+30 days"));
+            if($type === 2)
             $ticketid = $_POST['ticketid'];
         }
         if ($name === '') {
