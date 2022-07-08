@@ -126,7 +126,7 @@ public function getConcert(string $artist)
     public function notPayed()
     {
         $ticket = db()->query('SELECT t.TicketID, c.CustomerName, c.Email, c.Phone, t.loyaltybonus, a.Artist, t.Paydate, t.Paid
-        FROM tickets AS t INNER JOIN customer AS c ON t.customerID = c.customerID INNER JOIN concerts AS a ON t.ConcertID = a.ConcertID WHERE t.Paid === "0"  ORDER BY t.Paydate;');
+        FROM tickets AS t INNER JOIN customer AS c ON t.customerID = c.customerID INNER JOIN concerts AS a ON t.ConcertID = a.ConcertID WHERE t.Paid ="0"  ORDER BY t.Paydate;');
         $tickets = $ticket->fetchAll();
         var_dump($tickets);
         return $tickets;
