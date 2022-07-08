@@ -7,23 +7,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Übersicht</title>
     <style>
-        div{
+        div {
             font-size: 20px;
         }
+
         td {
-            border: grey solid 2px;
+            border: #7b2091 solid 3px;
             font-size: 20px;
             padding: 5px;
             margin: 0px;
+        }
+
+        .nav {
+            margin: 10px;
+            padding: 10px;
+        }
+        .nav a{
+            background-color: #C134E4;
+            border: #7b2091 solid 3px;
         }
     </style>
 </head>
 
 <body>
     <h1>Übersicht</h1>
-    <div>
-        <a href="new">neuer eintrag</a>
-        <a href="notpayed">offene Rechnungen</a>
+    <div class="nav">
+        <a class="nav" href="new">Neuer Eintrag</a>
+        <a class="nav" href="notpayed">offene Rechnungen</a>
+        <a class="nav" href="overview">zurück zur Übersicht</a>
     </div>
     <table>
         <tr>
@@ -39,7 +50,7 @@
         </tr>
         <?php foreach ($allsales as $sale) : ?>
             <tr>
-                <?php if($sale['Paid'] === null) $sale['Paid'] = 0; ?>
+                <?php if ($sale['Paid'] === null) $sale['Paid'] = 0; ?>
                 <td> <?= $sale['CustomerName']; ?> </td>
                 <td> <?= $sale['Email']; ?> </td>
                 <td> <?= $sale['Phone']; ?> </td>
