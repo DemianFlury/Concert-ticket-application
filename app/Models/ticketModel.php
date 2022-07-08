@@ -108,18 +108,20 @@ class ticketmodel
             $customer->execute();
 
             $customerinfo = $customer->fetch();
-            //var_dump($customerinfo);
+            
         }
-       
+        echo "hier kommt die id:  ";
+        var_dump($customerinfo['CustomerID']);
 
 
         $ticket = db()->prepare('INSERT INTO `tickets`(Customerid,Concertid,Paid,Paydate,loyaltybonus) VALUES (:customerid,:concertid,:paid,:paydate,:loyaltybonus)');
-        $ticket->bindParam(':customerid', $customerinfo['Customerid']);
-        $ticket->bindParam(':concertid', $concertinfo['Concertid']);
+        $ticket->bindParam(':customerid', $customerinfo['CustomerID']);
+        $ticket->bindParam(':concertid', $concertinfo['ConcertID']);
         $ticket->bindParam(':paid', $this->paid);
         $ticket->bindParam(':paydate', $this->paydate);
         $ticket->bindParam(':loyaltybonus', $this->loyalty);
         $ticket->execute();
+
     }
 
     /**
