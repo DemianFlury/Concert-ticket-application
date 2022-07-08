@@ -127,8 +127,9 @@ class ticketmodel
      */
     public function getall()
     {
-        $ticket = db()->query('SELECT t.TicketID c.CustomerName, c.Email, c.Phone, c.loyaltybonus, a.Artist, t.Paydate, t.Paid
+        $ticket = db()->query('SELECT t.TicketID, c.CustomerName, c.Email, c.Phone, t.loyaltybonus, a.Artist, t.Paydate, t.Paid
         FROM tickets AS t INNER JOIN customer AS c ON t.customerID = c.customerID INNER JOIN concerts AS a ON t.ConcertID = a.ConcertID ORDER BY TicketID;');
+        $ticket->execute();
         $tickets = $ticket->fetchAll();
         //var_dump($tickets);
         return $tickets;
@@ -137,13 +138,14 @@ class ticketmodel
     /**
      * Aktualisiert die aktuellen Daten in der Datenbank.
      */
-    public function update()
+    public function getTicket(int $id)
     {
-        $ticket = db()->prepare('SELECT c.customerName, c.email, c.phone, c.loyaltybonus, a.artist, t.paydate, t.paid
-        FROM ticket AS t INNER JOIN customer AS c ON t.customerid = c.customerid INNER JOIN concert AS a ON t.concertid = c.concertid where ticketid =:ticketid');
-        $ticket->bindParam(':ticketid', $this);
+        $ticket = db()->prepare('SELECT c.customerName, c.email, c.phone, t.loyaltybonus, a.artist, t.paydate, t.paid
+        FROM tickets AS t INNER JOIN customer AS c ON t.customerid = c.customerid INNER JOIN concerts AS a ON t.ConcertID = c.ConcertID where ticketid =:ticketid');
+        $ticket->bindParam(':ticketid', $id);
         $ticket->execute();
-        return $ticket;
+        $theticket = $ticket->fetch();
+        return $theticket;
     }
 
     /**

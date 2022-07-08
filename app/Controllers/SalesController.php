@@ -10,9 +10,10 @@ class SalesController
     }
     public function edit()
     {
+        $ticketID = $_GET['id'];
         $ticketmodel = new ticketmodel();
         $concertlist = $ticketmodel->getConcerts();
-        
+        $ticket = $ticketmodel->getTicket($ticketID);
         require 'app/Views/mutate-sale.view.php';
     }
     public function newTicket()

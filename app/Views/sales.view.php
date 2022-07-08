@@ -30,13 +30,13 @@
         </tr>
         <?php foreach ($allsales as $sale) : ?>
             <tr>
-                <td> <?= $sale['customerName']; ?> </td>
-                <td> <?= $sale['email']; ?> </td>
-                <td> <?= $sale['phone']; ?> </td>
+                <td> <?= $sale['CustomerName']; ?> </td>
+                <td> <?= $sale['Email']; ?> </td>
+                <td> <?= $sale['Phone']; ?> </td>
                 <td> <?= $sale['loyaltybonus']; ?> </td>
                 <td> <?= $sale['Artist']; ?> </td>
-                <td> <?= $sale['paydate']; ?> </td>
-                <td> <?= $sale['paid'] ?> </td>
+                <td> <?= $sale['Paydate']; ?> </td>
+                <td> <?= $sale['Paid'] ?> </td>
                 <td> <?= $sale['TicketID'] ?> </td>
                 <td><a href="edit?id=<?= $sale['TicketID']; ?>">Bearbeiten</a></td>
             </tr>
