@@ -127,7 +127,7 @@ public function getConcert(string $artist)
     {
         $ticket = db()->prepare('SELECT t.TicketID, c.CustomerName, c.Email, c.Phone, t.loyaltybonus, a.Artist, t.Paydate, t.Paid
         FROM tickets AS t INNER JOIN customer AS c ON t.customerID = c.customerID INNER JOIN concerts AS a ON t.ConcertID = a.ConcertID WHERE t.Paid === :paid  ORDER BY t.Paydate;');
-        $ticket->bindParam(':paid', false);
+        $ticket->bindParam(':paid', 0);
         $ticket->execute();
 
         $tickets = $ticket->fetchAll();
@@ -161,8 +161,11 @@ public function getConcert(string $artist)
         $this->phone = $strings["phone"];
         $this->concert = $strings["concert"];
         $this->paid = $ispaid;  
+
         $concertInfo = $this->getConcert($this->concert);
+        var_dump($concertInfo);
         $concertID = $concertInfo["ConcertID"];
+        var_dump($concertID);
 
         $ticket = db()->prepare('UPDATE `tickets` SET Paid = :paid, ConcertID =:concertID WHERE TicketID = :id');
         $ticket->bindParam(':paid', $this->paid);

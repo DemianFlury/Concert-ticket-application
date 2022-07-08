@@ -111,7 +111,7 @@
                     <select class="form-control" id="concert" name="concert">
                         <option value="<?= $ticket['artist']; ?>"><?= $ticket['artist']; ?></option>
                         <?php foreach ($concertlist as $concert) : ?>
-                            <option value=<?= $concert['Artist'] ?>><?= $concert['Artist'] ?></option>
+                            <option value='<?= $concert['Artist'] ?>'><?= $concert['Artist'] ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
