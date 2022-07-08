@@ -5,6 +5,7 @@ $routes = [
 	'/' => 'SalesController@overview',
 	'/overview' => 'SalesController@overview',
 	'/edit' => 'SalesController@edit',
+	'/delete' => 'SalesController@delete',
 	'/new' => 'SalesController@newTicket',
 	'/validatenew' => 'SalesController@validatenew',
 	'/validateedit' => 'SalesController@validateedit',

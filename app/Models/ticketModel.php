@@ -157,7 +157,7 @@ class ticketmodel
     {
         //Daten Löschen
         $id = $_GET['id'];
-        $statement = db()->prepare('DELETE FROM `tickets` WHERE id = :id');
+        $statement = db()->prepare('DELETE FROM `tickets` WHERE TicketID = :id');
         $statement->bindParam(':id', $id);
         $statement->execute();
         
