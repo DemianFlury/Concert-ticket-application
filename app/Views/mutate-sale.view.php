@@ -57,7 +57,7 @@
                     var errors = [];
                     let name = document.querySelector("#name").value;
                     let email = document.querySelector("#email").value;
-                    let phone = document.querySelector("#phone").value;
+                    let concert = document.querySelector("#phone").value;
                     let people = document.querySelector("#people").value;
                     if (name === '') {
                         errors.push('Bitte geben Sie einen Namen ein.');
@@ -95,9 +95,14 @@
                     <label class="form-label" for="phone">Telefonnummer</label>
                     <input class="form-control" type="text" id="phone" name="phone" placeholder="nicht erforderlich">
                 </div>
-                <div>
-                    <label class="form-label" for="loyalty">Treuerabatt in %</label>
-                    <input type="number" id="loyalty" name="loyaltybonus" class="form-control">
+                <div class="form-group">
+                    <label class="form-label" for="concert">Treuerabatt</label>
+                    <select class="form-control" id="concert" name="concert">
+                        <option value="0">0%</option>
+                        <option value="5">5%</option>
+                        <option value="10">10%</option>
+                        <option value="15">15%</option>
+                    </select>
                 </div>
             </fieldset>
             <fieldset>
@@ -105,8 +110,10 @@
                 <div class="form-group">
                     <label class="form-label" for="concert">Konzert auswählen</label>
                     <select class="form-control" id="concert" name="concert">
-                        <option value="">Kein Abendprogramm</option> <? //foreach konzert in der datenbank eine option ?>
-                        <option value="Billardturnier">Billardturnier</option>
+                        <option value="">bitte auwählen...</option>
+                        <?php foreach($concertlist as $concert): ?>
+                            <option value=<?= $concert['Artist'] ?>><?= $concert['Artist'] ?></option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
             </fieldset>
